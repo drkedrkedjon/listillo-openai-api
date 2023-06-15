@@ -1,16 +1,28 @@
 import "./App.css";
 
 function App() {
-  const url =
+  const conversationArr = [
+    {
+      role: "system",
+      content:
+        "You are highly knowledgeable assistant that is always happy to help.",
+    },
+    {
+      role: "user",
+      content: "La pregunta de usuario sobre bla bla...",
+    },
+  ];
+
+  const fetchUrl =
     "https://listillo-openai-api.netlify.app/.netlify/functions/openAiFetch";
 
   async function fetchApi() {
-    const response = await fetch(url, {
+    const response = await fetch(fetchUrl, {
       method: "POST",
       headers: {
-        "Content-Type": "text/plain",
+        "Content-Type": "application/json",
       },
-      body: "Jujuuuu",
+      body: JSON.stringify(conversationArr),
     });
     const data = await response.json();
     console.log(data);
