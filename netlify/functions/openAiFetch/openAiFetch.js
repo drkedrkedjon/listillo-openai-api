@@ -9,6 +9,7 @@ const openAi = new OpenAIApi(openAiConf);
 // eslint-disable-next-line no-undef
 exports.handler = async function (event) {
   const conversationArray = JSON.parse(event.body)
+  const conv = JSON.stringify(conversationArray)
 
 
   // try {
@@ -22,7 +23,7 @@ exports.handler = async function (event) {
 
   return {
     statusCode: 200,
-    body: JSON.stringify({ message: "Hello World" }),
-    // body: conversationArray,
+    // body: JSON.stringify({ message: "Hello World" }),
+    body: conv,
   };
 };
