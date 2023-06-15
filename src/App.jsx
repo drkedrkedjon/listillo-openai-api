@@ -13,12 +13,6 @@ function App() {
     },
   ];
 
-  const jsn = JSON.stringify(conversationArr);
-  const arr = JSON.parse(jsn);
-
-  const json2 = JSON.stringify(arr);
-  console.log(json2);
-
   const fetchUrl =
     "https://listillo-openai-api.netlify.app/.netlify/functions/openAiFetch";
 
@@ -34,7 +28,7 @@ function App() {
     console.log(data);
   }
 
-  // fetchApi();
+  fetchApi();
   return <h1>Test</h1>;
 }
 
