@@ -1,14 +1,3 @@
-// Handle preflight requests
-if (req.method === 'OPTIONS') {
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8888');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  res.setHeader('Access-Control-Max-Age', '86400'); // 24 hours
-  res.statusCode = 200;
-  res.end();
-  return;
-}
-
 
 import { Configuration, OpenAIApi } from "openai";
 const openAiConf = new Configuration({
