@@ -1,4 +1,0 @@
-/.netlify/functions/openAiFetch
-  Access-Control-Allow-Origin: http://localhost:8888
-  Access-Control-Allow-Methods: GET, POST, OPTIONS
-  Access-Control-Allow-Headers: Content-Type
