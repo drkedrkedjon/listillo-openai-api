@@ -16,6 +16,7 @@ function App() {
     console.log(data);
   }
 
+  fetchApi();
   return <h1>Test</h1>;
 }
 
