@@ -1,9 +1,9 @@
 
-import { Configuration, OpenAIApi } from "openai";
-const openAiConf = new Configuration({
-  apiKey: process.env.REACT_APP_API_KEY,
-});
-const openAi = new OpenAIApi(openAiConf);
+// import { Configuration, OpenAIApi } from "openai";
+// const openAiConf = new Configuration({
+//   apiKey: process.env.REACT_APP_API_KEY,
+// });
+// const openAi = new OpenAIApi(openAiConf);
 
 exports.handler = async function (event) {
 
@@ -24,17 +24,17 @@ exports.handler = async function (event) {
     const conversationArray = JSON.parse(event.body)
     // console.log(conversationArray)
 
-    const response = await openAi.createChatCompletion({
-      model: "gpt-3.5-turbo",
-      messages: conversationArray,
-    });
-    const dataFromOpenAi = JSON.stringify(response)
+    // const response = await openAi.createChatCompletion({
+    //   model: "gpt-3.5-turbo",
+    //   messages: conversationArray,
+    // });
+    // const dataFromOpenAi = JSON.stringify(response)
 
     return {
       statusCode: 200,
       headers,
-      // body: JSON.stringify(conversationArray),
-      body: response,
+      body: JSON.stringify(conversationArray),
+      // body: response,
     };
   }
 };
