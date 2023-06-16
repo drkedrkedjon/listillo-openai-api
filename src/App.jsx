@@ -13,10 +13,10 @@ function App() {
     },
   ];
 
-  const fetchUrl =
-    "https://listillo-openai-api.netlify.app/.netlify/functions/openAiFetch";
-
   async function fetchApi() {
+    const fetchUrl =
+      "https://listillo-openai-api.netlify.app/.netlify/functions/openAiFetch";
+
     const response = await fetch(fetchUrl, {
       method: "POST",
       headers: {

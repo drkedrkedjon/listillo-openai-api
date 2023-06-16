@@ -5,6 +5,8 @@
 // });
 // const openAi = new OpenAIApi(openAiConf);
 
+const apiKey = process.env.REACT_APP_API_KEY
+
 exports.handler = async function (event) {
 
   const headers = {
@@ -33,8 +35,8 @@ exports.handler = async function (event) {
     return {
       statusCode: 200,
       headers,
-      body: JSON.stringify(conversationArray),
-      // body: response,
+      // body: JSON.stringify(conversationArray),
+      body: apiKey,
     };
   }
 };
