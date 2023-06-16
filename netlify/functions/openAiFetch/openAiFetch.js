@@ -36,7 +36,7 @@ exports.handler = async function (event) {
       statusCode: 200,
       headers,
       // body: JSON.stringify(conversationArray),
-      body: apiKey,
+      body: JSON.stringify(apiKey),
     };
   }
 };
