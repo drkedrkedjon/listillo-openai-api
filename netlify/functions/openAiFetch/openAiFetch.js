@@ -12,22 +12,23 @@ exports.handler = async function (event) {
   const conversationArray = JSON.parse(event.body)
   const conv = JSON.stringify(conversationArray)
 
-
-  // try {
-  //   const response = await openAi.createCompletion({
-  //     model: "gpt-3.5-turbo",
-  //     prompt: event.body,
-
-
-
-
-
-  return {
-    statusCode: 200,
-    headers: {
-      "Access-Control-Allow-Origin": "*", // Allow from anywhere 
-    },
-    body: JSON.stringify({ message: "Hello World" }),
-    // body: conv,
-  };
+  const headers = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+  }
+  if (event.httpMethod === "OPTIONS") {
+    return {
+      statusCode: 200,
+      headers,
+      body: "This was a preflight call!",
+    }
+  } else if (event.httpMethod === "POST") {
+    return {
+      statusCode: 200,
+      headers,
+      // body: JSON.stringify({ message: "Hello World" }),
+      body: conv,
+    };
+  }
 };
