@@ -1,9 +1,9 @@
 
-// import { Configuration, OpenAIApi } from "openai";
-// const openAiConf = new Configuration({
-//   apiKey: process.env.REACT_APP_API_KEY,
-// });
-// const openAi = new OpenAIApi(openAiConf);
+import { Configuration, OpenAIApi } from "openai";
+const openAiConf = new Configuration({
+  apiKey: process.env.REACT_APP_API_KEY,
+});
+const openAi = new OpenAIApi(openAiConf);
 
 
 
