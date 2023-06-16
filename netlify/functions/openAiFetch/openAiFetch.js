@@ -26,15 +26,15 @@ exports.handler = async function (event) {
 
     const response = await openAi.createChatCompletion({
       model: "gpt-3.5-turbo",
-      messages: event.body,
+      messages: conversationArray,
     });
     const dataFromOpenAi = JSON.stringify(response)
 
     return {
       statusCode: 200,
       headers,
-      // body: JSON.stringify(conversationArray),
-      body: dataFromOpenAi,
+      body: JSON.stringify(conversationArray),
+      // body: dataFromOpenAi,
     };
   }
 };
