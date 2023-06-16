@@ -27,8 +27,8 @@ function App() {
     const data = await response.json();
     console.log(data);
   }
+  // fetchApi();
 
-  fetchApi();
   return <h1>Test</h1>;
 }
 
