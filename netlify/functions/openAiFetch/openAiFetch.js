@@ -21,21 +21,21 @@ exports.handler = async function (event) {
       body: "This was a preflight call!",
     }
   } else if (event.httpMethod === "POST") {
-    const conversationArray = JSON.parse(event.body)
-    console.log(conversationArray)
+    // const conversationArray = JSON.parse(event.body)
+    // console.log(conversationArray)
 
-    const response = await openAi.createChatCompletion({
-      model: "gpt-3.5-turbo",
-      messages: conversationArray,
-    });
-    console.log(response)
-    const dataFromOpenAi = JSON.stringify(response)
+    // const response = await openAi.createChatCompletion({
+    //   model: "gpt-3.5-turbo",
+    //   messages: conversationArray,
+    // });
+    // console.log(response)
+    // const dataFromOpenAi = JSON.stringify(response)
 
     return {
       statusCode: 200,
       headers,
-      // body: JSON.stringify({ message: "Hello World" }),
-      body: dataFromOpenAi,
+      body: JSON.stringify({ message: "Hello World" }),
+      // body: dataFromOpenAi,
     };
   }
 };
