@@ -1,9 +1,9 @@
 
-import { Configuration, OpenAIApi } from "openai";
-const openAiConf = new Configuration({
-  apiKey: process.env.REACT_APP_API_KEY,
-});
-const openAi = new OpenAIApi(openAiConf);
+// import { Configuration, OpenAIApi } from "openai";
+// const openAiConf = new Configuration({
+//   apiKey: process.env.REACT_APP_API_KEY,
+// });
+// const openAi = new OpenAIApi(openAiConf);
 
 
 
@@ -13,9 +13,11 @@ exports.handler = async function (event) {
   const conv = JSON.stringify(conversationArray)
 
   const headers = {
-    "Access-Control-Allow-Origin": "*",
+    "HTTP/1.1": "200 OK",
+    "Access-Control-Allow-Origin": "http://localhost:8888",
     "Access-Control-Allow-Headers": "Content-Type",
-    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS, DELETE, HEAD,",
+    "Access-Control-Allow-Credentials": true
   }
   if (event.httpMethod === "OPTIONS") {
     return {
