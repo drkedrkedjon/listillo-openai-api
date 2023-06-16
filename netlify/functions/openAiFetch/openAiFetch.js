@@ -13,11 +13,10 @@ exports.handler = async function (event) {
   const conv = JSON.stringify(conversationArray)
 
   const headers = {
-    "HTTP/1.1": "200 OK",
     "Access-Control-Allow-Origin": "http://localhost:8888",
     "Access-Control-Allow-Headers": "Content-Type",
     "Access-Control-Allow-Methods": "GET, POST, OPTIONS, DELETE, HEAD,",
-    "Access-Control-Allow-Credentials": true
+    "Access-Control-Max-Age": "86400"
   }
   if (event.httpMethod === "OPTIONS") {
     return {
