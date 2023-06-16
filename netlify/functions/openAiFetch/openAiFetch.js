@@ -26,7 +26,7 @@ exports.handler = async function (event) {
 
     const response = await openAi.createChatCompletion({
       model: "gpt-3.5-turbo",
-      messages: conversationArray,
+      messages: event.body,
     });
     const dataFromOpenAi = JSON.stringify(response)
 
