@@ -21,7 +21,7 @@ exports.handler = async function (event) {
       body: "This was a preflight call!",
     }
   } else if (event.httpMethod === "POST") {
-    // const conversationArray = JSON.parse(event.body)
+    const conversationArray = JSON.parse(event.body)
     // console.log(conversationArray)
 
     // const response = await openAi.createChatCompletion({
@@ -34,7 +34,7 @@ exports.handler = async function (event) {
     return {
       statusCode: 200,
       headers,
-      body: JSON.stringify({ message: "Hello World" }),
+      body: JSON.stringify(conversationArray),
       // body: dataFromOpenAi,
     };
   }
