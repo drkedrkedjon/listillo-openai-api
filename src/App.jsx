@@ -1,5 +1,15 @@
 import "./App.css";
 
+// Start openAi setup
+import { process } from "./env";
+import { Configuration, OpenAIApi } from "openai";
+
+const configuration = new Configuration({
+  apiKey: process.env.REACT_APP_OPENAI_API_KEY,
+});
+const openAI = new OpenAIApi(configuration);
+// End openAI setup
+
 function App() {
   const conversationArr = [
     {
@@ -12,6 +22,16 @@ function App() {
       content: "How are you today?...",
     },
   ];
+
+  // async function fetchApi() {
+  //   const response = await openAI.createChatCompletion({
+  //     model: "gpt-3.5-turbo",
+  //     messages: conversationArr,
+  //   });
+  //   console.log(response.data.choices[0].message);
+  // }
+
+  // fetchApi();
 
   async function fetchApi() {
     const fetchUrl =
@@ -27,7 +47,7 @@ function App() {
     const data = await response.json();
     console.log(data);
   }
-  // fetchApi();
+  fetchApi();
 
   return <h1>Test</h1>;
 }

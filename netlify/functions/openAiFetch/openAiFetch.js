@@ -1,9 +1,9 @@
 
-// import { Configuration, OpenAIApi } from "openai";
-// const openAiConf = new Configuration({
-//   apiKey: process.env.REACT_APP_API_KEY,
-// });
-// const openAi = new OpenAIApi(openAiConf);
+import { Configuration, OpenAIApi } from "openai";
+const openAiConf = new Configuration({
+  apiKey: process.env.REACT_APP_API_KEY,
+});
+const openAI = new OpenAIApi(openAiConf);
 
 exports.handler = async function (event) {
 
@@ -21,20 +21,18 @@ exports.handler = async function (event) {
       body: "This was a preflight call!",
     }
   } else if (event.httpMethod === "POST") {
-    const conversationArray = JSON.parse(event.body)
-    // console.log(conversationArray)
+    const conversationArr = JSON.parse(event.body)
 
-    // const response = await openAi.createChatCompletion({
-    //   model: "gpt-3.5-turbo",
-    //   messages: conversationArray,
-    // });
-    // const dataFromOpenAi = JSON.stringify(response)
+    const response = await openAI.createChatCompletion({
+      model: "gpt-3.5-turbo",
+      messages: conversationArr,
+    });
+    const dataFromOpenAi = JSON.stringify(response.data.choices[0].message)
 
     return {
       statusCode: 200,
       headers,
-      body: JSON.stringify(conversationArray),
-      // body: JSON.stringify(apiKey),
+      body: dataFromOpenAi,
     };
   }
 };
