@@ -1,13 +1,13 @@
 import "./App.css";
 
 // Start openAi setup
-import { process } from "./env";
-import { Configuration, OpenAIApi } from "openai";
+// import { process } from "./env";
+// import { Configuration, OpenAIApi } from "openai";
 
-const configuration = new Configuration({
-  apiKey: process.env.REACT_APP_OPENAI_API_KEY,
-});
-const openAI = new OpenAIApi(configuration);
+// const configuration = new Configuration({
+//   apiKey: process.env.REACT_APP_OPENAI_API_KEY,
+// });
+// const openAI = new OpenAIApi(configuration);
 // End openAI setup
 
 function App() {
