@@ -1,8 +1,10 @@
 import "./App.css";
-import { push, get, remove } from "firebase/database";
+import { push, get, remove, set } from "firebase/database";
 import { conversacionesRef } from "./scripts/firebase";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Login from "./components/Login";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { auth } from "./scripts/firebase";
 
 // const conversationArr = [
 //   {
@@ -36,6 +38,24 @@ function App() {
   }
   // fetchApi();
 
+  function handleLogoff() {
+    signOut(auth)
+      .then(setIsLogged(false))
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setIsLogged(true);
+      } else {
+        setIsLogged(false);
+      }
+    });
+  }, [isLogged]);
+
   return (
     <main className="main-container">
       {!isLogged && <Login setIsLogged={setIsLogged} />}
@@ -43,7 +63,9 @@ function App() {
         <>
           <header className="header-container">
             <h1>Chat with Listillo</h1>
-            <button className="btn">Logoff</button>
+            <button onClick={handleLogoff} className="btn">
+              Logoff
+            </button>
           </header>
           <section className="chat-container">
             <div className="chat-listillo">
@@ -53,6 +75,16 @@ function App() {
               <p>Ayuda meeee tiooo quiero beber vinoooo</p>
             </div>
           </section>
+          <footer className="footer-container">
+            <form className="send-message-container">
+              <input
+                className="message-input"
+                type="text"
+                placeholder="Write your message"
+              />
+              <button className="chat-btn">SEND</button>
+            </form>
+          </footer>
         </>
       )}
     </main>

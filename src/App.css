@@ -19,11 +19,15 @@ body {
   max-width: 1000px;
   margin: 0 auto;
   background-color: #222;
-  padding: 0 1rem;
+  padding: 0 1rem 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   min-height: 100dvh;
+  /* position: relative; */
+}
+h1 {
+  font-size: 1.5rem;
 }
 
 /* ************************** */
@@ -83,11 +87,16 @@ body {
 .submit-btn:hover {
   transform: scale(1.02);
 }
+
+/* ************************** */
+/* Chat Component */
+/* ************************** */
+
 .header-container {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
   padding: 1rem 0;
   border-bottom: white 1px solid;
 }
@@ -97,10 +106,65 @@ body {
   border-radius: 5px;
   border: none;
   background-color: yellowgreen;
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 }
 .btn:hover {
   transform: scale(1.02);
+}
+.chat-container {
+  width: 90%;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.chat-listillo,
+.chat-usuario {
+  padding: 1rem;
+  border-radius: 20px;
+  max-width: 70%;
+}
+.chat-listillo {
+  align-self: flex-start;
+  background-color: rebeccapurple;
+  border-bottom-right-radius: 5px;
+}
+.chat-usuario {
+  align-self: flex-end;
+  background-color: #555;
+  border-top-left-radius: 5px;
+}
+
+.footer-container {
+  margin-top: auto;
+  width: min(90%, 900px);
+}
+
+.send-message-container {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.message-input {
+  width: 100%;
+  padding: 1rem;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border: none;
+  background-color: #111;
+  color: white;
+  font-size: inherit;
+}
+.chat-btn {
+  width: 70px;
+  border: none;
+  background-color: #111;
+  color: aquamarine;
+  padding: 1rem;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
