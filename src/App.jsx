@@ -1,17 +1,20 @@
 import "./App.css";
+import { push, get, remove } from "firebase/database";
+import conversationesRef from "./firebase";
+
+// const conversationArr = [
+//   {
+//     role: "user",
+//     content: "How are you today?...",
+//   },
+// ];
 
 function App() {
-  const conversationArr = [
-    {
-      role: "system",
-      content:
-        "You are highly knowledgeable assistant that is always happy to help.",
-    },
-    {
-      role: "user",
-      content: "How are you today?...",
-    },
-  ];
+  const instructionObject = {
+    role: "system",
+    content:
+      "You are highly knowledgeable assistant that is always happy to help.",
+  };
 
   async function fetchApi() {
     const fetchUrl =
