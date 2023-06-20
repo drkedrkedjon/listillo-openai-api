@@ -93,12 +93,15 @@ h1 {
 /* ************************** */
 
 .header-container {
-  width: 100%;
+  position: fixed;
+  top: 0;
+  width: min(90%, 900px);
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
   padding: 1rem 0;
   border-bottom: white 1px solid;
+  background-color: #222;
 }
 .btn {
   font-weight: 900;
@@ -115,30 +118,33 @@ h1 {
 }
 .chat-container {
   width: 90%;
-  margin-top: 2rem;
+  margin-top: 5rem;
+  margin-bottom: 3rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
 }
-.chat-listillo,
-.chat-usuario {
+.chat-assistant,
+.chat-user {
   padding: 1rem;
   border-radius: 20px;
-  max-width: 70%;
+  max-width: 80%;
 }
-.chat-listillo {
+.chat-assistant {
   align-self: flex-start;
   background-color: rebeccapurple;
   border-bottom-right-radius: 5px;
 }
-.chat-usuario {
+.chat-user {
   align-self: flex-end;
   background-color: #555;
   border-top-left-radius: 5px;
 }
 
 .footer-container {
+  position: fixed;
+  bottom: 0;
   margin-top: auto;
   width: min(90%, 900px);
 }

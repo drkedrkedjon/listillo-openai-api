@@ -1,7 +1,7 @@
 import "./App.css";
 import { push, get, remove, onValue } from "firebase/database";
 import { conversacionesRef } from "./scripts/firebase";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Login from "./components/Login";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "./scripts/firebase";
@@ -11,6 +11,7 @@ function App() {
   const [isLogged, setIsLogged] = useState(false);
   const [messageForm, setMessageForm] = useState("");
   const [conversacion, setConversacion] = useState([]);
+  const scrollRef = useRef(null);
 
   // This is instructions object for OpenAI
   const instructionsObject = {
@@ -84,9 +85,15 @@ function App() {
     return cancelOnValue;
   }, []);
 
+  // useEffect(() => {
+  //   if (scrollRef.current) {
+  //     scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+  //   }
+  // }, [conversacion]);
+
   // Map conversation to render
   const mapeo = conversacion.map((message, index) => (
-    <div key={index} className="chat-usuario">
+    <div key={index} className={`chat-${message.role}`}>
       <p>{message.content}</p>
     </div>
   ));
@@ -102,8 +109,8 @@ function App() {
               Logoff
             </button>
           </header>
-          <section className="chat-container">
-            <div className="chat-listillo">
+          <section ref={scrollRef} className="chat-container">
+            <div className="chat-assistant">
               <p>Hola soy Listillo, que quieres tio de mi</p>
             </div>
             {mapeo}
