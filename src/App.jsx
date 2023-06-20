@@ -6,21 +6,33 @@ import Login from "./components/Login";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "./scripts/firebase";
 
-// const conversationArr = [
-//   {
-//     role: "user",
-//     content: "How are you today?...",
-//   },
-// ];
-
 function App() {
   const [isLogged, setIsLogged] = useState(false);
+  const [messageForm, setMessageForm] = useState("");
+  const [conversacion, setConversacion] = useState([]);
 
   const instructionsObject = {
     role: "system",
     content:
       "You are highly knowledgeable assistant that is always happy to help.",
   };
+
+  function handleSendMessage(event) {
+    event.preventDefault();
+
+    push(conversacionesRef, {
+      role: "user",
+      content: messageForm,
+    });
+    get(conversacionesRef).then((snapshot) => {
+      const conversationArr = Object.values(snapshot.val());
+      setConversacion(conversationArr);
+      // conversationArr.unshift(instructionsObject);
+      // console.log(conversationArr);
+    });
+
+    setMessageForm("");
+  }
 
   async function fetchApi() {
     const fetchUrl =
@@ -36,7 +48,6 @@ function App() {
     const data = await response.json();
     console.log(data);
   }
-  // fetchApi();
 
   function handleLogoff() {
     signOut(auth)
@@ -56,6 +67,12 @@ function App() {
     });
   }, [isLogged]);
 
+  const mapeo = conversacion.map((message, index) => (
+    <div key={index} className="chat-usuario">
+      <p>{message.content}</p>
+    </div>
+  ));
+
   return (
     <main className="main-container">
       {!isLogged && <Login setIsLogged={setIsLogged} />}
@@ -71,16 +88,19 @@ function App() {
             <div className="chat-listillo">
               <p>Hola soy Listillo, que quieres tio de mi</p>
             </div>
-            <div className="chat-usuario">
-              <p>Ayuda meeee tiooo quiero beber vinoooo</p>
-            </div>
+            {mapeo}
           </section>
           <footer className="footer-container">
-            <form className="send-message-container">
+            <form
+              onSubmit={handleSendMessage}
+              className="send-message-container"
+            >
               <input
                 className="message-input"
                 type="text"
                 placeholder="Write your message"
+                value={messageForm}
+                onChange={(e) => setMessageForm(e.target.value)}
               />
               <button className="chat-btn">SEND</button>
             </form>
