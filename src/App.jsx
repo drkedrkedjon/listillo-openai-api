@@ -1,5 +1,5 @@
 import "./App.css";
-import { push, get, remove, set } from "firebase/database";
+import { push, get, remove, onValue } from "firebase/database";
 import { conversacionesRef } from "./scripts/firebase";
 import { useEffect, useState } from "react";
 import Login from "./components/Login";
@@ -7,34 +7,37 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "./scripts/firebase";
 
 function App() {
+  // State for if user is loged, Form control and conversation to render
   const [isLogged, setIsLogged] = useState(false);
   const [messageForm, setMessageForm] = useState("");
   const [conversacion, setConversacion] = useState([]);
 
+  // This is instructions object for OpenAI
   const instructionsObject = {
     role: "system",
     content:
       "You are highly knowledgeable assistant that is always happy to help.",
   };
 
+  // Function to send message to firebase, then to retrive all messages and send to OpenAI and also to update the conversation state
   function handleSendMessage(event) {
     event.preventDefault();
-
     push(conversacionesRef, {
       role: "user",
       content: messageForm,
     });
     get(conversacionesRef).then((snapshot) => {
-      const conversationArr = Object.values(snapshot.val());
-      setConversacion(conversationArr);
-      // conversationArr.unshift(instructionsObject);
-      // console.log(conversationArr);
+      const conversationArr1 = Object.values(snapshot.val());
+      const conversationArr2 = Object.values(snapshot.val());
+      setConversacion(conversationArr1);
+      conversationArr2.unshift(instructionsObject);
+      fetchApi(conversationArr2);
     });
-
     setMessageForm("");
   }
 
-  async function fetchApi() {
+  // Function to sent data to OpenAI using Netlify Serveless Functions
+  async function fetchApi(sendMessage) {
     const fetchUrl =
       "https://listillo-openai-api.netlify.app/.netlify/functions/openAiFetch";
 
@@ -43,12 +46,13 @@ function App() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify("Mi array de conversacion"),
+      body: JSON.stringify(sendMessage),
     });
     const data = await response.json();
-    console.log(data);
+    push(conversacionesRef, data);
   }
 
+  // Log off function
   function handleLogoff() {
     signOut(auth)
       .then(setIsLogged(false))
@@ -57,6 +61,7 @@ function App() {
       });
   }
 
+  // Check if user is logged, eventListener for firebase auth
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -65,8 +70,21 @@ function App() {
         setIsLogged(false);
       }
     });
-  }, [isLogged]);
+  }, []);
 
+  // Cargar mensajes ya existentes al inicio y eventListener para firebase database
+  useEffect(() => {
+    const cancelOnValue = onValue(conversacionesRef, (snapshot) => {
+      if (snapshot.val()) {
+        setConversacion(Object.values(snapshot.val()));
+      } else {
+        setConversacion([]);
+      }
+    });
+    return cancelOnValue;
+  }, []);
+
+  // Map conversation to render
   const mapeo = conversacion.map((message, index) => (
     <div key={index} className="chat-usuario">
       <p>{message.content}</p>
