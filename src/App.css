@@ -98,11 +98,37 @@ h1 {
   width: min(90%, 900px);
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: end;
   padding: 1rem 0;
-  border-bottom: white 1px solid;
+  border-bottom: #999 5px solid;
   background-color: #222;
 }
+.header-img {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 1rem;
+  margin-top: 10px;
+}
+
+.header-img img {
+  height: 30px;
+  width: auto;
+}
+.header-img button {
+  background-color: transparent;
+  border: 1px solid red;
+  padding: 0.3rem 1rem;
+  border-radius: 5px;
+  color: red;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.header-img button:hover {
+  transform: scale(1.02);
+}
+
 .btn {
   font-weight: 900;
   padding: 0.5rem 2rem;
@@ -118,7 +144,7 @@ h1 {
 }
 .chat-container {
   width: 90%;
-  margin-top: 5rem;
+  margin-top: 8rem;
   margin-bottom: 3rem;
   display: flex;
   flex-direction: column;

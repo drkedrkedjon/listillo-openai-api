@@ -5,10 +5,11 @@ import { useEffect, useState, useRef } from "react";
 import Login from "./components/Login";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "./scripts/firebase";
+import robot from "./assets/robot.jpg";
 
 function App() {
   // State for if user is loged, Form control and conversation to render
-  const [isLogged, setIsLogged] = useState(false);
+  const [isLogged, setIsLogged] = useState(true);
   const [messageForm, setMessageForm] = useState("");
   const [conversacion, setConversacion] = useState([]);
   const scrollRef = useRef(null);
@@ -77,19 +78,21 @@ function App() {
   useEffect(() => {
     const cancelOnValue = onValue(conversacionesRef, (snapshot) => {
       if (snapshot.val()) {
-        setConversacion(Object.values(snapshot.val()));
+        const conversationArr = Object.values(snapshot.val());
+        setConversacion(conversationArr);
       } else {
         setConversacion([]);
       }
     });
-    return cancelOnValue;
+    return () => cancelOnValue();
   }, []);
 
-  // useEffect(() => {
-  //   if (scrollRef.current) {
-  //     scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-  //   }
-  // }, [conversacion]);
+  // Scroll to bottom of chat using scrollRef
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
+    }
+  }, [conversacion]);
 
   // Map conversation to render
   const mapeo = conversacion.map((message, index) => (
@@ -104,7 +107,15 @@ function App() {
       {isLogged && (
         <>
           <header className="header-container">
-            <h1>Chat with Listillo</h1>
+            <div>
+              <h1>Chat with Listillo</h1>
+              <div className="header-img">
+                <img src={robot} alt="robot" />
+                <button onClick={() => remove(conversacionesRef)}>
+                  Start again
+                </button>
+              </div>
+            </div>
             <button onClick={handleLogoff} className="btn">
               Logoff
             </button>
@@ -114,6 +125,9 @@ function App() {
               <p>Hola soy Listillo, que quieres tio de mi</p>
             </div>
             {mapeo}
+            <br />
+            <br />
+            <br />
           </section>
           <footer className="footer-container">
             <form
