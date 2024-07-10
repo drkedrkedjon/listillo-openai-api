@@ -1,5 +1,4 @@
 /* eslint-disable no-undef */
-
 import { Configuration, OpenAIApi } from "openai";
 const openAiConf = new Configuration({
   apiKey: process.env.REACT_APP_API_KEY,
